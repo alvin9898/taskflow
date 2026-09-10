@@ -1,0 +1,341 @@
+/* =========================================
+   EDIT TASK PAGE
+   ========================================= */
+
+.edit-task-page {
+  width: 100%;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.edit-task-header {
+  margin-bottom: 22px;
+}
+
+.edit-task-label {
+  margin: 0 0 6px;
+
+  color: #2563eb;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.6px;
+}
+
+.edit-task-header h1 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.edit-task-header p {
+  margin: 7px 0 0;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+/* =========================================
+   CARD
+   ========================================= */
+
+.edit-task-card {
+  width: 100%;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 5px 18px rgba(15, 23, 42, 0.04);
+}
+
+/* =========================================
+   SECTION
+   ========================================= */
+
+.edit-section {
+  padding: 22px 24px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.edit-section:last-of-type {
+  border-bottom: none;
+}
+
+.edit-section h2 {
+  margin: 0 0 18px;
+
+  color: #1e293b;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #334155;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.form-group label span {
+  margin-left: 3px;
+
+  color: #dc2626;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+
+  padding: 10px 12px;
+
+  border: 1px solid #dbe2ea;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #334155;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.form-group input,
+.form-group select {
+  height: 40px;
+}
+
+.form-group textarea {
+  min-height: 110px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #a0aec0;
+}
+
+/* =========================================
+   TWO COLUMN FORM
+   ========================================= */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 16px;
+}
+
+/* =========================================
+   ACTIONS
+   ========================================= */
+
+.edit-task-actions {
+  padding: 18px 24px;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  background: #f8fafc;
+
+  border-top: 1px solid #edf0f4;
+}
+
+.cancel-btn,
+.save-task-btn {
+  min-width: 115px;
+
+  height: 38px;
+
+  padding: 0 16px;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s,
+    box-shadow 0.2s,
+    transform 0.15s;
+}
+
+.cancel-btn {
+  border: 1px solid #dbe2ea;
+
+  background: #ffffff;
+
+  color: #475569;
+}
+
+.cancel-btn:hover {
+  background: #f8fafc;
+}
+
+.save-task-btn {
+  border: none;
+
+  background: #2563eb;
+
+  color: #ffffff;
+}
+
+.save-task-btn:hover {
+  background: #1d4ed8;
+
+  box-shadow:
+    0 5px 12px rgba(37, 99, 235, 0.2);
+}
+
+.cancel-btn:active,
+.save-task-btn:active {
+  transform: translateY(1px);
+}
+
+/* =========================================
+   ACCESS / ERROR
+   ========================================= */
+
+.access-denied {
+  padding: 60px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 14px;
+
+  text-align: center;
+}
+
+.access-denied h2 {
+  margin: 0 0 8px;
+
+  color: #1e293b;
+
+  font-size: 20px;
+}
+
+.access-denied p {
+  margin: 0 0 18px;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+.access-denied button {
+  height: 36px;
+
+  padding: 0 15px;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 700px) {
+  .edit-task-header h1 {
+    font-size: 25px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .edit-section {
+    padding: 18px;
+  }
+
+  .edit-task-actions {
+    padding: 15px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-task-actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-btn,
+  .save-task-btn {
+    width: 100%;
+  }
+}

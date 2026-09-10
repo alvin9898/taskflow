@@ -1,0 +1,284 @@
+.role-login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #f4f7fb;
+  box-sizing: border-box;
+}
+
+.login-brand {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.brand-logo {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #2563eb;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+.login-brand h1 {
+  margin: 0;
+  font-size: 32px;
+  color: #111827;
+}
+
+.login-brand p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.role-login-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 35px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
+  box-sizing: border-box;
+}
+
+.role-login-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.role-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: #eff6ff;
+  font-size: 27px;
+}
+
+.role-login-header h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 26px;
+}
+
+.role-login-header p {
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.login-form-group {
+  margin-bottom: 19px;
+}
+
+.login-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-form-group input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+  outline: none;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+
+.login-form-group input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 22px;
+  font-size: 13px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #6b7280;
+}
+
+.remember-me input {
+  width: 15px;
+  height: 15px;
+}
+
+.login-options a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.role-login-btn {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 9px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.role-login-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 27px 0;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: #e5e7eb;
+}
+
+.other-login {
+  text-align: center;
+}
+
+.other-login p {
+  margin: 0 0 12px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.role-links {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+}
+
+.role-links a {
+  padding: 8px 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 8px;
+  color: #2563eb;
+  background: #f8fbff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.role-links a:hover {
+  background: #eff6ff;
+}
+
+.register-link {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.register-link a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-footer {
+  display: flex;
+  gap: 15px;
+  margin-top: 22px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+/* Admin */
+.role-login-page.admin .role-icon {
+  background: #fef2f2;
+}
+
+.role-login-page.admin .role-login-btn {
+  background: #7c3aed;
+}
+
+.role-login-page.admin .role-login-btn:hover {
+  background: #6d28d9;
+}
+
+/* Manager */
+.role-login-page.manager .role-icon {
+  background: #eff6ff;
+}
+
+/* Team Member */
+.role-login-page.team-member .role-icon {
+  background: #ecfdf5;
+}
+
+.role-login-page.team-member .role-login-btn {
+  background: #059669;
+}
+
+.role-login-page.team-member .role-login-btn:hover {
+  background: #047857;
+}
+
+@media (max-width: 600px) {
+  .role-login-page {
+    padding: 25px 15px;
+  }
+
+  .role-login-card {
+    padding: 25px 20px;
+  }
+
+  .login-brand h1 {
+    font-size: 28px;
+  }
+
+  .role-login-header h2 {
+    font-size: 23px;
+  }
+
+  .login-footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+}
