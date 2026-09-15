@@ -4,7 +4,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import { useAuth } from "../context/AuthContext";
 import "./TaskDetails.css";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://taskflow-backend-sqgj.onrender.com/api";
 
 /* =========================================
    AUTH TOKEN
