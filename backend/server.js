@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 await connectDB();
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: process.env.CLIENT_URL || "https://taskflow-c92m-liard.vercel.app",
   credentials: true
 }));
 app.use(express.json());
@@ -27,7 +27,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/health", (req, res) => {
-  res.json({ ok: true, message: "TaskFlow backend is running" });
+  res.json({
+    ok: true,
+    message: "TaskFlow backend is running"
+  });
 });
 
 app.use("/api/auth", authRoutes);

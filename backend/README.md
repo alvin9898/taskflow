@@ -22,7 +22,7 @@ Copy `.env.example` to `.env` and set:
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/taskflow
 JWT_SECRET=replace_with_a_long_random_secret
-CLIENT_URL=http://localhost:5173
+CLIENT_URL=https://taskflow-c92m-liard.vercel.app
 ```
 
 For MongoDB Atlas, replace `MONGO_URI` with your Atlas connection string.
@@ -44,7 +44,7 @@ npm start
 Health check:
 
 ```text
-http://localhost:5000/api/health
+http://taskflow-backend-sqgj.onrender.com/api/health
 ```
 
 ## Main API
