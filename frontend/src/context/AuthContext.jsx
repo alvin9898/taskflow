@@ -39,11 +39,11 @@ export function AuthProvider({ children }) {
       });
   }, []);
 
-  const login = async (email, password, role) => {
+  const login = async (email, password) => {
     const data = await loginUser(
       email,
-      password,
-      role
+      password
+    
     );
 
     localStorage.setItem(
@@ -58,7 +58,7 @@ export function AuthProvider({ children }) {
 
     setUser(data.user);
 
-    return data.user;
+    return data;
   };
 
   const register = async (

@@ -26,13 +26,12 @@ export async function apiRequest(endpoint, options = {}) {
   return data;
 }
 
-export async function loginUser(email, password, role) {
+export async function loginUser(email, password) {
   return apiRequest("/auth/login", {
     method: "POST",
     body: JSON.stringify({
       email,
       password,
-      role,
     }),
   });
 }

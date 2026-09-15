@@ -15,17 +15,13 @@ function Sidebar() {
   return (
     <aside className="sidebar">
 
+      {/* LOGO */}
       <div className="sidebar-logo">
         <h2>TaskFlow</h2>
       </div>
 
-
       {/* USER */}
       <div className="sidebar-user">
-
-        <div className="sidebar-avatar">
-          {user?.name?.charAt(0) || "U"}
-        </div>
 
         <div>
           <strong>
@@ -39,14 +35,12 @@ function Sidebar() {
 
       </div>
 
-
       {/* MENU */}
       <nav className="sidebar-menu">
 
         <Link to="/dashboard">
           Dashboard
         </Link>
-
 
         {(role === "Manager" ||
           role === "Admin") && (
@@ -61,28 +55,23 @@ function Sidebar() {
           </>
         )}
 
-
         <Link to="/my-tasks">
           My Tasks
         </Link>
-
 
         <Link to="/notifications">
           Notifications
         </Link>
 
-
         <Link to="/profile">
           Profile
         </Link>
-
 
         {role === "Admin" && (
           <Link to="/user-management">
             User Management
           </Link>
         )}
-
 
         {role === "Manager" && (
           <Link to="/workload">
@@ -91,7 +80,6 @@ function Sidebar() {
         )}
 
       </nav>
-
 
       {/* LOGOUT */}
       <button

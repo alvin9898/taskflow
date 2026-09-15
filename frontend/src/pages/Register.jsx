@@ -1,126 +1,167 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "./Auth.css";
 
-function Register() {
-  const { register } = useAuth();
+export default function Register() {
   const navigate = useNavigate();
+const { register } = useAuth();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("Team Member");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "Team Member",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      await register(
-        name,
-        email,
-        password,
-        role
-      );
+   try {
+    await register(
+      formData.name,
+      formData.email,
+      formData.password,
+      formData.role
+    );
 
-      alert("Account created successfully!");
+    alert("Account created successfully!");
 
-      navigate("/dashboard");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+    navigate("/dashboard");
+  } catch (error) {
+    alert(error.message);
+  }
+};
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h1>Create TaskFlow Account</h1>
+    <div className="register-page">
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name</label>
-          <br />
+      <div className="register-card">
 
-          <input
-            value={name}
-            onChange={(e) =>
-              setName(e.target.value)
-            }
-            required
-          />
+        {/* LOGO */}
+        <div className="register-logo">
+          <div className="register-logo-icon">✓</div>
+          <span>TaskFlow</span>
         </div>
 
-        <br />
-
-        <div>
-          <label>Email</label>
-          <br />
-
-          <input
-            type="email"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
-            required
-          />
+        {/* HEADER */}
+        <div className="register-header">
+          <h1>Create your account</h1>
+          <p>
+            Start managing your tasks and team efficiently.
+          </p>
         </div>
 
-        <br />
+        {/* FORM */}
+        <form
+          onSubmit={handleSubmit}
+          className="register-form"
+        >
 
-        <div>
-          <label>Password</label>
-          <br />
+          {/* NAME */}
+          <div className="register-group">
+            <label htmlFor="name">
+              Name
+            </label>
 
-          <input
-            type="password"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-            minLength={6}
-            required
-          />
-        </div>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Enter your full name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <br />
+          {/* EMAIL */}
+          <div className="register-group">
+            <label htmlFor="email">
+              Email
+            </label>
 
-        <div>
-          <label>Role</label>
-          <br />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <select
-            value={role}
-            onChange={(e) =>
-              setRole(e.target.value)
-            }
+          {/* PASSWORD */}
+          <div className="register-group">
+            <label htmlFor="password">
+              Password
+            </label>
+
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Create a password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* ROLE */}
+          <div className="register-group">
+            <label htmlFor="role">
+              Role
+            </label>
+
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+            >
+              <option value="Team Member">
+                Team Member
+              </option>
+
+              <option value="Admin">
+                Admin
+              </option>
+
+              <option value="Manager">
+                Manager
+              </option>
+            </select>
+          </div>
+
+          {/* BUTTON */}
+          <button
+            type="submit"
+            className="register-button"
           >
-            <option value="Team Member">
-              Team Member
-            </option>
+            Create Account
+          </button>
 
-            <option value="Manager">
-              Manager
-            </option>
+        </form>
 
-            <option value="Admin">
-              Admin
-            </option>
-          </select>
+        {/* LOGIN */}
+        <div className="register-login">
+          Already have an account?{" "}
+          <Link to="/login">
+            Login
+          </Link>
         </div>
 
-        <br />
+      </div>
 
-        <button type="submit">
-          Create Account
-        </button>
-      </form>
-
-      <br />
-
-      <Link to="/login">
-        Already have an account? Login
-      </Link>
     </div>
   );
 }
-
-export default Register;

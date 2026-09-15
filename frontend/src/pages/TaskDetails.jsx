@@ -98,32 +98,23 @@ function TaskDetails() {
 
   const [task, setTask] = useState(null);
 
-  const [status, setStatus] =
-    useState("Pending");
+  const [status, setStatus] = useState("Pending");
 
-  const [progress, setProgress] =
-    useState(0);
+  const [progress, setProgress] = useState(0);
 
-  const [commentText, setCommentText] =
-    useState("");
+  const [commentText, setCommentText] = useState("");
 
-  const [comments, setComments] =
-    useState([]);
+  const [comments, setComments] = useState([]);
 
-  const [activities, setActivities] =
-    useState([]);
+  const [activities, setActivities] = useState([]);
 
-  const [loading, setLoading] =
-    useState(true);
+  const [loading, setLoading] = useState(true);
 
-  const [saving, setSaving] =
-    useState(false);
+  const [saving, setSaving] = useState(false);
 
-  const [commentSaving, setCommentSaving] =
-    useState(false);
+  const [commentSaving, setCommentSaving] = useState(false);
 
-  const [error, setError] =
-    useState("");
+  const [error, setError] = useState("");
 
   /* =========================================
      LOAD TASK FROM MONGODB
@@ -135,8 +126,7 @@ function TaskDetails() {
 
       setError("");
 
-      const data =
-        await apiRequest(`/tasks/${id}`);
+      const data = await apiRequest(`/tasks/${id}`);
 
       const foundTask =
         data.task ||
@@ -150,22 +140,19 @@ function TaskDetails() {
 
       setTask(foundTask);
 
-      setStatus(
-        foundTask.status || "Pending"
-      );
+      setStatus(foundTask.status || "Pending");
 
-      setProgress(
-        Number(foundTask.progress || 0)
-      );
+      setProgress(Number(foundTask.progress || 0));
 
       /* =====================================
          COMMENTS FROM MONGODB
          ===================================== */
 
-      const backendComments =
-        Array.isArray(foundTask.comments)
-          ? foundTask.comments
-          : [];
+      const backendComments = Array.isArray(
+        foundTask.comments
+      )
+        ? foundTask.comments
+        : [];
 
       setComments(
         backendComments.map((comment) => ({
@@ -193,25 +180,17 @@ function TaskDetails() {
 
       /* =====================================
          ACTIVITY
-         
-         Your current backend does not have
-         an Activity model/endpoint, so activity
-         history remains local to the browser.
          ===================================== */
 
       const activityKey =
         `taskflow_activities_${id}`;
 
-      const savedActivities =
-        JSON.parse(
-          localStorage.getItem(
-            activityKey
-          ) || "[]"
-        );
-
-      setActivities(
-        savedActivities
+      const savedActivities = JSON.parse(
+        localStorage.getItem(activityKey) ||
+          "[]"
       );
+
+      setActivities(savedActivities);
 
     } catch (requestError) {
       console.error(
@@ -238,10 +217,9 @@ function TaskDetails() {
   useEffect(() => {
     loadTask();
 
-    const handleTasksUpdated =
-      () => {
-        loadTask();
-      };
+    const handleTasksUpdated = () => {
+      loadTask();
+    };
 
     window.addEventListener(
       "taskflowTasksUpdated",
@@ -302,387 +280,295 @@ function TaskDetails() {
      STATUS CHANGE
      ========================================= */
 
-  const handleStatusChange =
-    (newStatus) => {
-      setStatus(newStatus);
+  const handleStatusChange = (newStatus) => {
+    setStatus(newStatus);
 
-      if (
-        newStatus ===
-        "Completed"
-      ) {
-        setProgress(100);
-      }
-
-      if (
-        newStatus ===
-        "Pending"
-      ) {
-        setProgress(0);
-      }
-    };
-
-  /* =========================================
-     PROGRESS CHANGE
-     ========================================= */
-
-  const handleProgressChange =
-    (value) => {
-      let newProgress =
-        Number(value);
-
-      if (
-        Number.isNaN(
-          newProgress
-        )
-      ) {
-        newProgress = 0;
-      }
-
-      newProgress =
-        Math.max(
-          0,
-          Math.min(
-            100,
-            newProgress
-          )
-        );
-
-      setProgress(
-        newProgress
-      );
-
-      if (
-        newProgress ===
-        100
-      ) {
-        setStatus(
-          "Completed"
-        );
-      } else if (
-        newProgress > 0 &&
-        status === "Pending"
-      ) {
-        setStatus(
-          "In Progress"
-        );
-      }
-    };
+    if (newStatus === "Pending") {
+      setProgress(0);
+    } else if (
+      newStatus === "In Progress"
+    ) {
+      setProgress(50);
+    } else if (
+      newStatus === "On Hold"
+    ) {
+      setProgress(50);
+    } else if (
+      newStatus === "Completed"
+    ) {
+      setProgress(100);
+    }
+  };
 
   /* =========================================
      UPDATE TASK IN MONGODB
      ========================================= */
 
-  const handleUpdate =
-    async () => {
-      if (
-        !task ||
-        saving
-      ) {
-        return;
-      }
+  const handleUpdate = async () => {
+    if (!task || saving) {
+      return;
+    }
 
-      let finalStatus =
-        status;
+    /* -----------------------------------------
+       AUTOMATIC PROGRESS BASED ON STATUS
+       ----------------------------------------- */
 
-      let finalProgress =
-        Number(progress);
+    let finalProgress = 0;
 
-      if (
-        finalStatus ===
-        "Completed"
-      ) {
-        finalProgress = 100;
-      }
+    if (status === "Pending") {
+      finalProgress = 0;
+    } else if (
+      status === "In Progress"
+    ) {
+      finalProgress = 50;
+    } else if (
+      status === "On Hold"
+    ) {
+      finalProgress = 50;
+    } else if (
+      status === "Completed"
+    ) {
+      finalProgress = 100;
+    }
 
-      if (
-        finalStatus ===
-        "Pending"
-      ) {
-        finalProgress = 0;
-      }
+    try {
+      setSaving(true);
 
-      if (
-        finalProgress ===
-        100
-      ) {
-        finalStatus =
-          "Completed";
-      }
+      setError("");
 
-      if (
-        finalProgress > 0 &&
-        finalStatus ===
-          "Pending"
-      ) {
-        finalStatus =
-          "In Progress";
-      }
+      const data = await apiRequest(
+        `/tasks/${task._id}`,
+        {
+          method: "PUT",
 
-      try {
-        setSaving(true);
+          body: JSON.stringify({
+            status: status,
+            progress: finalProgress,
+          }),
+        }
+      );
 
-        setError("");
-
-        const data =
-          await apiRequest(
-            `/tasks/${task._id}`,
-            {
-              method: "PUT",
-
-              body: JSON.stringify({
-                status:
-                  finalStatus,
-
-                progress:
-                  finalProgress,
-              }),
-            }
-          );
-
-        const updatedTask =
-          data.task ||
-          data.data?.task ||
-          {
-            ...task,
-
-            status:
-              finalStatus,
-
-            progress:
-              finalProgress,
-          };
-
-        setTask(
-          updatedTask
-        );
-
-        setStatus(
-          updatedTask.status ||
-            finalStatus
-        );
-
-        setProgress(
-          Number(
-            updatedTask.progress ||
-              finalProgress
-          )
-        );
-
-        /* ===================================
-           ACTIVITY
-           =================================== */
-
-        const activityKey =
-          `taskflow_activities_${task._id}`;
-
-        const newActivity = {
-          id: Date.now(),
-
-          text:
-            `${user?.name || "User"} updated the task status to ${finalStatus} and progress to ${finalProgress}%.`,
-
-          time:
-            new Date().toLocaleString(),
-
-          type:
-            "update",
+      const updatedTask =
+        data.task ||
+        data.data?.task ||
+        {
+          ...task,
+          status: status,
+          progress: finalProgress,
         };
 
-        const updatedActivities =
-          [
-            ...activities,
-            newActivity,
-          ];
+      setTask(updatedTask);
 
-        localStorage.setItem(
-          activityKey,
-          JSON.stringify(
-            updatedActivities
-          )
-        );
+      setStatus(
+        updatedTask.status ||
+          status
+      );
 
-        setActivities(
+      setProgress(
+        Number(
+          updatedTask.progress ??
+            finalProgress
+        )
+      );
+
+      /* =====================================
+         ACTIVITY
+         ===================================== */
+
+      const activityKey =
+        `taskflow_activities_${task._id}`;
+
+      const newActivity = {
+        id: Date.now(),
+
+        text:
+          `${user?.name || "User"} updated the task status to ${status}.`,
+
+        time:
+          new Date().toLocaleString(),
+
+        type: "update",
+      };
+
+      const updatedActivities = [
+        ...activities,
+        newActivity,
+      ];
+
+      localStorage.setItem(
+        activityKey,
+        JSON.stringify(
           updatedActivities
-        );
+        )
+      );
 
-        window.dispatchEvent(
-          new Event(
-            "taskflowTasksUpdated"
-          )
-        );
+      setActivities(
+        updatedActivities
+      );
 
-        alert(
-          "Task updated successfully!"
-        );
+      window.dispatchEvent(
+        new Event(
+          "taskflowTasksUpdated"
+        )
+      );
 
-      } catch (
+      alert(
+        "Task updated successfully!"
+      );
+
+    } catch (requestError) {
+      console.error(
+        "Failed to update task:",
         requestError
-      ) {
-        console.error(
-          "Failed to update task:",
-          requestError
-        );
+      );
 
-        setError(
-          requestError.message ||
-            "Unable to update task."
-        );
+      setError(
+        requestError.message ||
+          "Unable to update task."
+      );
 
-        alert(
-          requestError.message ||
-            "Unable to update task."
-        );
+      alert(
+        requestError.message ||
+          "Unable to update task."
+      );
 
-      } finally {
-        setSaving(false);
-      }
-    };
+    } finally {
+      setSaving(false);
+    }
+  };
 
   /* =========================================
      ADD COMMENT TO MONGODB
      ========================================= */
 
-  const handleAddComment =
-    async () => {
-      const text =
-        commentText.trim();
+  const handleAddComment = async () => {
+    const text =
+      commentText.trim();
 
-      if (
-        !text ||
-        !task ||
-        commentSaving
-      ) {
-        return;
-      }
+    if (
+      !text ||
+      !task ||
+      commentSaving
+    ) {
+      return;
+    }
 
-      try {
-        setCommentSaving(
-          true
+    try {
+      setCommentSaving(true);
+
+      setError("");
+
+      const data =
+        await apiRequest(
+          `/tasks/${task._id}/comments`,
+          {
+            method: "POST",
+
+            body: JSON.stringify({
+              comment: text,
+            }),
+          }
         );
 
-        setError("");
+      const updatedTask =
+        data.task ||
+        data.data?.task ||
+        task;
 
-        const data =
-          await apiRequest(
-            `/tasks/${task._id}/comments`,
-            {
-              method: "POST",
+      setTask(updatedTask);
 
-              body: JSON.stringify({
-                comment: text,
-              }),
-            }
-          );
+      /* ===================================
+         REFRESH COMMENTS
+         =================================== */
 
-        const updatedTask =
-          data.task ||
-          data.data?.task ||
-          task;
+      const backendComments =
+        Array.isArray(
+          updatedTask.comments
+        )
+          ? updatedTask.comments
+          : [];
 
-        setTask(
-          updatedTask
-        );
+      setComments(
+        backendComments.map(
+          (comment) => ({
+            id:
+              comment._id ||
+              comment.id,
 
-        /* ===================================
-           REFRESH COMMENTS
-           =================================== */
+            user: getName(
+              comment.userId ||
+                comment.user
+            ),
 
-        const backendComments =
-          Array.isArray(
-            updatedTask.comments
-          )
-            ? updatedTask.comments
-            : [];
+            text:
+              comment.comment ||
+              comment.text ||
+              "",
 
-        setComments(
-          backendComments.map(
-            (comment) => ({
-              id:
-                comment._id ||
-                comment.id,
+            time:
+              comment.createdAt
+                ? new Date(
+                    comment.createdAt
+                  ).toLocaleString()
+                : "Just now",
+          })
+        )
+      );
 
-              user:
-                getName(
-                  comment.userId ||
-                    comment.user
-                ),
+      /* ===================================
+         ACTIVITY
+         =================================== */
 
-              text:
-                comment.comment ||
-                comment.text ||
-                "",
+      const newActivity = {
+        id: Date.now(),
 
-              time:
-                comment.createdAt
-                  ? new Date(
-                      comment.createdAt
-                    ).toLocaleString()
-                  : "Just now",
-            })
-          )
-        );
+        text:
+          `${user?.name || "User"} added a comment.`,
 
-        /* ===================================
-           ACTIVITY
-           =================================== */
+        time:
+          new Date().toLocaleString(),
 
-        const newActivity = {
-          id:
-            Date.now(),
+        type: "comment",
+      };
 
-          text:
-            `${user?.name || "User"} added a comment.`,
+      const updatedActivities = [
+        ...activities,
+        newActivity,
+      ];
 
-          time:
-            new Date().toLocaleString(),
-
-          type:
-            "comment",
-        };
-
-        const updatedActivities =
-          [
-            ...activities,
-            newActivity,
-          ];
-
-        localStorage.setItem(
-          `taskflow_activities_${task._id}`,
-          JSON.stringify(
-            updatedActivities
-          )
-        );
-
-        setActivities(
+      localStorage.setItem(
+        `taskflow_activities_${task._id}`,
+        JSON.stringify(
           updatedActivities
-        );
+        )
+      );
 
-        setCommentText("");
+      setActivities(
+        updatedActivities
+      );
 
-      } catch (
+      setCommentText("");
+
+    } catch (requestError) {
+      console.error(
+        "Failed to add comment:",
         requestError
-      ) {
-        console.error(
-          "Failed to add comment:",
-          requestError
-        );
+      );
 
-        setError(
-          requestError.message ||
-            "Unable to add comment."
-        );
+      setError(
+        requestError.message ||
+          "Unable to add comment."
+      );
 
-        alert(
-          requestError.message ||
-            "Unable to add comment."
-        );
+      alert(
+        requestError.message ||
+          "Unable to add comment."
+      );
 
-      } finally {
-        setCommentSaving(
-          false
-        );
-      }
-    };
+    } finally {
+      setCommentSaving(false);
+    }
+  };
 
   /* =========================================
      LOADING
@@ -691,7 +577,9 @@ function TaskDetails() {
   if (loading) {
     return (
       <DashboardLayout>
+
         <div className="task-not-found">
+
           <h2>
             Loading Task...
           </h2>
@@ -699,7 +587,9 @@ function TaskDetails() {
           <p>
             Loading task from MongoDB...
           </p>
+
         </div>
+
       </DashboardLayout>
     );
   }
@@ -711,6 +601,7 @@ function TaskDetails() {
   if (!task) {
     return (
       <DashboardLayout>
+
         <div className="task-not-found">
 
           <h2>
@@ -725,15 +616,14 @@ function TaskDetails() {
 
           <button
             onClick={() =>
-              navigate(
-                "/tasks"
-              )
+              navigate("/tasks")
             }
           >
             Back to Tasks
           </button>
 
         </div>
+
       </DashboardLayout>
     );
   }
@@ -767,9 +657,7 @@ function TaskDetails() {
           <button
             className="back-btn"
             onClick={() =>
-              navigate(
-                "/tasks"
-              )
+              navigate("/tasks")
             }
           >
             ← Back to Tasks
@@ -801,20 +689,11 @@ function TaskDetails() {
         {error && (
           <div
             style={{
-              marginBottom:
-                "16px",
-
-              padding:
-                "12px 16px",
-
-              borderRadius:
-                "8px",
-
-              background:
-                "#fff1f1",
-
-              color:
-                "#b42318",
+              marginBottom: "16px",
+              padding: "12px 16px",
+              borderRadius: "8px",
+              background: "#fff1f1",
+              color: "#b42318",
             }}
           >
             {error}
@@ -924,7 +803,7 @@ function TaskDetails() {
           </div>
 
           {/* =================================
-              PROGRESS
+              PROGRESS DISPLAY
               ================================= */}
 
           <div className="task-progress-section">
@@ -954,8 +833,7 @@ function TaskDetails() {
               <div
                 className="task-progress-fill"
                 style={{
-                  width:
-                    `${progress}%`,
+                  width: `${progress}%`,
                 }}
               ></div>
 
@@ -1006,32 +884,9 @@ function TaskDetails() {
 
               </div>
 
-              <div className="task-update-field">
-
-                <label>
-                  Progress
-                </label>
-
-                <input
-                  type="number"
-                  min="0"
-                  max="100"
-                  value={progress}
-                  onChange={(e) =>
-                    handleProgressChange(
-                      e.target.value
-                    )
-                  }
-                  disabled={saving}
-                />
-
-              </div>
-
               <button
                 className="update-task-btn"
-                onClick={
-                  handleUpdate
-                }
+                onClick={handleUpdate}
                 disabled={saving}
               >
                 {saving
