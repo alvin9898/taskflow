@@ -27,34 +27,30 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://taskflow-c92m-liard.vercel.app"
+      "https://taskflow-c92m-liard.vercel.app",
     ],
-    credentials: true
+    credentials: true,
   })
 );
 
 app.use(express.json());
 
 /* =========================
-   ROOT ROUTE
+   HEALTH CHECK
 ========================= */
 
 app.get("/", (req, res) => {
   res.json({
     name: "TaskFlow API",
     status: "running",
-    version: "1.0.0"
+    version: "1.0.0",
   });
 });
-
-/* =========================
-   HEALTH CHECK
-========================= */
 
 app.get("/api/health", (req, res) => {
   res.json({
     ok: true,
-    message: "TaskFlow backend is running"
+    message: "TaskFlow backend is running",
   });
 });
 
@@ -63,11 +59,8 @@ app.get("/api/health", (req, res) => {
 ========================= */
 
 app.use("/api/auth", authRoutes);
-
 app.use("/api/tasks", taskRoutes);
-
 app.use("/api/users", userRoutes);
-
 app.use("/api/notifications", notificationRoutes);
 
 /* =========================
@@ -76,7 +69,7 @@ app.use("/api/notifications", notificationRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
-    message: "Route not found"
+    message: "Route not found",
   });
 });
 
@@ -85,10 +78,10 @@ app.use((req, res) => {
 ========================= */
 
 app.use((err, req, res, next) => {
-  console.error("SERVER ERROR:", err);
+  console.error(err);
 
   res.status(err.status || 500).json({
-    message: err.message || "Internal server error"
+    message: err.message || "Internal server error",
   });
 });
 
@@ -96,6 +89,6 @@ app.use((err, req, res, next) => {
    START SERVER
 ========================= */
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`TaskFlow backend running on port ${PORT}`);
 });
