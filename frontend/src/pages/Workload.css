@@ -1,0 +1,596 @@
+/* =========================================
+   TEAM WORKLOAD
+   ========================================= */
+
+.workload-page {
+  width: 100%;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.workload-header {
+  margin-bottom: 22px;
+}
+
+.workload-label {
+  margin: 0 0 6px;
+
+  color: #2563eb;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.workload-header h1 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 30px;
+}
+
+.workload-header p {
+  margin: 7px 0 0;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+/* =========================================
+   SUMMARY
+   ========================================= */
+
+.workload-summary {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 14px;
+
+  margin-bottom: 20px;
+}
+
+.workload-stat {
+  min-height: 78px;
+
+  padding: 14px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 4px 14px rgba(15, 23, 42, 0.03);
+}
+
+.workload-stat-icon {
+  width: 39px;
+  height: 39px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  font-size: 15px;
+}
+
+.workload-stat-icon.blue {
+  background: #eff6ff;
+}
+
+.workload-stat-icon.purple {
+  background: #f5f3ff;
+}
+
+.workload-stat-icon.orange {
+  background: #fff7ed;
+}
+
+.workload-stat-icon.red {
+  background: #fef2f2;
+}
+
+.workload-stat span {
+  display: block;
+
+  color: #94a3b8;
+
+  font-size: 9px;
+}
+
+.workload-stat strong {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #111827;
+
+  font-size: 20px;
+}
+
+/* =========================================
+   OVERALL PROGRESS
+   ========================================= */
+
+.workload-progress-card {
+  padding: 19px 20px;
+
+  margin-bottom: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 13px;
+
+  box-shadow:
+    0 5px 18px rgba(15, 23, 42, 0.04);
+}
+
+.workload-progress-heading {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+}
+
+.workload-progress-heading h2 {
+  margin: 0;
+
+  color: #1e293b;
+
+  font-size: 15px;
+}
+
+.workload-progress-heading p {
+  margin: 4px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 10px;
+}
+
+.workload-progress-heading > strong {
+  color: #2563eb;
+
+  font-size: 23px;
+}
+
+.workload-progress-bar {
+  width: 100%;
+  height: 8px;
+
+  overflow: hidden;
+
+  background: #e2e8f0;
+
+  border-radius: 20px;
+}
+
+.workload-progress-fill {
+  height: 100%;
+
+  background: #2563eb;
+
+  border-radius: 20px;
+
+  transition: width 0.4s ease;
+}
+
+.workload-progress-footer {
+  margin-top: 8px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  color: #94a3b8;
+
+  font-size: 9px;
+}
+
+/* =========================================
+   TOOLBAR
+   ========================================= */
+
+.workload-toolbar {
+  margin-bottom: 15px;
+}
+
+.workload-search {
+  width: 280px;
+  height: 38px;
+
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 8px;
+}
+
+.workload-search input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #334155;
+
+  font-family: inherit;
+
+  font-size: 11px;
+}
+
+.workload-search input::placeholder {
+  color: #94a3b8;
+}
+
+/* =========================================
+   TEAM CARD
+   ========================================= */
+
+.team-table-card {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 5px 18px rgba(15, 23, 42, 0.04);
+}
+
+.team-card-header {
+  min-height: 70px;
+
+  padding: 17px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.team-card-header h2 {
+  margin: 0;
+
+  color: #1e293b;
+
+  font-size: 16px;
+}
+
+.team-card-header p {
+  margin: 4px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 10px;
+}
+
+.team-card-header > span {
+  color: #94a3b8;
+
+  font-size: 10px;
+}
+
+/* =========================================
+   TABLE
+   ========================================= */
+
+.team-row {
+  min-height: 72px;
+
+  padding: 12px 20px;
+
+  display: grid;
+
+  grid-template-columns:
+    1.6fr
+    0.7fr
+    0.8fr
+    0.9fr
+    0.9fr
+    0.8fr;
+
+  align-items: center;
+
+  column-gap: 12px;
+
+  border-bottom: 1px solid #f1f5f9;
+
+  box-sizing: border-box;
+}
+
+.team-row:last-child {
+  border-bottom: none;
+}
+
+.team-heading {
+  min-height: 44px;
+
+  background: #f8fafc;
+
+  color: #94a3b8;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.4px;
+}
+
+/* =========================================
+   MEMBER
+   ========================================= */
+
+.member-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.member-avatar {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.member-info strong {
+  display: block;
+
+  color: #334155;
+
+  font-size: 12px;
+}
+
+.member-info p {
+  margin: 3px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 9px;
+}
+
+/* =========================================
+   TOTAL
+   ========================================= */
+
+.task-total strong {
+  display: block;
+
+  color: #334155;
+
+  font-size: 15px;
+}
+
+.task-total small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #94a3b8;
+
+  font-size: 8px;
+}
+
+/* =========================================
+   COUNTS
+   ========================================= */
+
+.pending-count {
+  color: #ea580c;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.progress-count {
+  color: #2563eb;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.completed-count {
+  color: #059669;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* =========================================
+   WORKLOAD BADGE
+   ========================================= */
+
+.workload-badge {
+  width: fit-content;
+
+  padding: 5px 8px;
+
+  border-radius: 6px;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.workload-badge.low {
+  background: #ecfdf5;
+
+  color: #059669;
+}
+
+.workload-badge.medium {
+  background: #fff7ed;
+
+  color: #c2410c;
+}
+
+.workload-badge.high {
+  background: #fef2f2;
+
+  color: #dc2626;
+}
+
+/* =========================================
+   EMPTY
+   ========================================= */
+
+.workload-empty {
+  padding: 60px 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+}
+
+.workload-empty > div {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f1f5f9;
+
+  border-radius: 15px;
+
+  font-size: 23px;
+}
+
+.workload-empty h2 {
+  margin: 14px 0 5px;
+
+  color: #334155;
+
+  font-size: 17px;
+}
+
+.workload-empty p {
+  margin: 0;
+
+  color: #94a3b8;
+
+  font-size: 11px;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 950px) {
+  .workload-summary {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .team-row {
+    grid-template-columns:
+      1.4fr
+      0.6fr
+      0.7fr
+      0.8fr
+      0.8fr
+      0.7fr;
+  }
+}
+
+@media (max-width: 750px) {
+  .workload-search {
+    width: 100%;
+  }
+
+  .team-heading {
+    display: none;
+  }
+
+  .team-row {
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 10px;
+  }
+
+  .task-total {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+  }
+
+  .task-total small {
+    margin-top: 0;
+  }
+
+  .workload-badge {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 500px) {
+  .workload-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .workload-header h1 {
+    font-size: 26px;
+  }
+
+  .workload-progress-card {
+    padding: 16px;
+  }
+}
